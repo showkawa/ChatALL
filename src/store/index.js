@@ -58,6 +58,9 @@ export default createStore({
     moss: {
       token: "",
     },
+    chatGlm: {
+      token: "",
+    },
     qianWen: {
       xsrfToken: "",
     },
@@ -91,6 +94,8 @@ export default createStore({
           { classname: "BingChatBalancedBot", selected: true },
           { classname: "BingChatPreciseBot", selected: true },
           { classname: "BardBot", selected: true },
+          { classname: "ClaudeInstantPoeBot", selected: true },
+          { classname: "Falcon180bBot", selected: true },
           { classname: "Llama270bBot", selected: true },
           { classname: "VicunaBot", selected: true },
         ],
@@ -174,6 +179,9 @@ export default createStore({
     },
     setMoss(state, token) {
       state.moss.token = token;
+    },
+    setChatGLM(state, token) {
+      state.chatGlm = { ...state.chatGlm, ...token };
     },
     setQianWenToken(state, token) {
       state.qianWen.xsrfToken = token;
