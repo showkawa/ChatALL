@@ -83,6 +83,15 @@ export default createStore({
     poe: {
       formkey: "",
     },
+    falcon: {
+      temperature: 0.9,
+      maxNewTokens: 256,
+      topP: 0.9,
+      repetitionPenalty: 1.2,
+    },
+    phind: {
+      model: "Phind Model",
+    },
     chats: [
       {
         title: "New Chat",
@@ -95,7 +104,7 @@ export default createStore({
           { classname: "BingChatPreciseBot", selected: true },
           { classname: "BardBot", selected: true },
           { classname: "ClaudeInstantPoeBot", selected: true },
-          { classname: "Falcon180bBot", selected: true },
+          { classname: "FalconHC180bBot", selected: true },
           { classname: "Llama270bBot", selected: true },
           { classname: "VicunaBot", selected: true },
         ],
@@ -203,6 +212,9 @@ export default createStore({
     },
     setPoe(state, values) {
       state.poe = { ...state.poe, ...values };
+    },
+    setPhind(state, values) {
+      state.phind = { ...state.phind, ...values };
     },
     setLatestPromptIndex(state, promptIndex) {
       const currentChat = state.chats[state.currentChatIndex];

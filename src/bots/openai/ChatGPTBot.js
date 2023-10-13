@@ -131,7 +131,6 @@ export default class ChatGPTBot extends Bot {
       onShow: () => {},
       onSuppress: () => {},
       onCompleted: (response) => {
-        console.log("Arkose response:", response);
         ChatGPTBot._arkosePromise.resolve(response.token);
       },
       onReset: () => {},
@@ -148,10 +147,7 @@ export default class ChatGPTBot extends Bot {
   }
 
   async getArkoseToken() {
-    if (
-      ChatGPTBot._myEnforcement &&
-      this.constructor._model !== "text-davinci-002-render-sha"
-    ) {
+    if (ChatGPTBot._myEnforcement) {
       return new Promise((resolve, reject) => {
         ChatGPTBot._arkosePromise = { resolve, reject };
         ChatGPTBot._myEnforcement.run();
@@ -210,6 +206,10 @@ export default class ChatGPTBot extends Bot {
           } else
             try {
               const data = JSON.parse(event.data);
+
+              // Ignore messages which includes repeated content
+              if (data.message?.metadata?.is_complete) return;
+
               this.setChatContext({
                 conversationId: data.conversation_id,
                 parentMessageId: data.message_id,
